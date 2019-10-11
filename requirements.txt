@@ -1,0 +1,4 @@
+Django
+djangorestframework
+psycopg2==2.7.1
+pymongo
