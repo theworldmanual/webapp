@@ -11,13 +11,14 @@ def worlds_index(request):
     return render(request, 'worlds/index.html', context)
 
 
-def world_detail(request, world_id):
+def world_dashboard(request, world_id):
     world = get_object_or_404(World, pk=world_id)
     context = {
         'world': world,
         'page_templates': PageTemplate.objects.all(),
+        'recent_pages': Page.objects.filter(world=world).order_by('-updated_at')[:10],
     }
-    return render(request, 'worlds/edit.html', context)
+    return render(request, 'worlds/dashboard.html', context)
 
 
 def new_page(request, world_id, template_id):

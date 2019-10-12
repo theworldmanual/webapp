@@ -29,6 +29,8 @@ class Page(models.Model):
     title = models.CharField(max_length=255)
     data = JSONField(blank=True, null=True, default=dict)
     world = models.ForeignKey('world.World', on_delete=models.SET_NULL, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True)
 
     def __str__(self):
         return self.title

@@ -22,12 +22,14 @@
     </div>
 
     <div class="col-md-3">
-        <div class="panel">
-            <div class="panel-heading">
-                <span>Продолжить работу</span>
-            </div>
-            <div class="panel-body">
-                <span>Список недавних статей</span>
+        <div class="card">
+            <span class="card-header">Продолжить работу</span>
+            <div class="card-body">
+                <ul>
+                    {% for item in recent_pages %}
+                        <li><a href="{{ url('cpanel:page-edit', args=[item.pk]) }}">{{ item.title or 'Без навания' }}</a></li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>
     </div>
