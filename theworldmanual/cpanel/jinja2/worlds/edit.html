@@ -8,10 +8,13 @@
     <div class="col-md-9">
 
     <div class="card">
-            <h4 class="card-header">Создать...</h4>
+            <small class="card-header">Создать...</small>
             <div class="card-body template-type-grid">
                 {% for item in page_templates %}
-                <a href="#" class="btn btn-primary span4"><i class="fa {{ item.icon }} fa-fw "></i><span>{{ item.title }}</span></a>
+                <a href="#" class="btn btn-secondary span4" {% if item.description %}data-toggle="tooltip" data-placement="top" title="{{ item.description}}"{% endif %}>
+                    <i class="fa {{ item.icon }} fa-fw "></i>
+                    <span>{{ item.title }}</span>
+                </a>
                 {% endfor %}
             </div>
         </div>

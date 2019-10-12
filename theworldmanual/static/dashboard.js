@@ -26,3 +26,7 @@ function SidebarCollapse () {
     // Collapse/Expand icon
     $('#collapse-icon').toggleClass('fa-angle-double-left fa-angle-double-right');
 }
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+});

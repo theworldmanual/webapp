@@ -9,6 +9,7 @@ class World(models.Model):
 class PageTemplate(models.Model):
     title = models.CharField(max_length=50)
     icon = models.CharField(max_length=50)
+    description = models.CharField(max_length=255, blank=True, null=True)
     data = JSONField(blank=True, null=True, default=dict)
 
 
