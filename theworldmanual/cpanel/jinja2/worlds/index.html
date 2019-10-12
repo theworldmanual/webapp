@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Миры</h1>
+    <ul>
+    {% for world in worlds %}
+        <li><a href="{{ url('cpanel:world-detail', args=[world.id]) }}">{{ world.title }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}
