@@ -11,7 +11,7 @@
             <small class="card-header">Создать...</small>
             <div class="card-body template-type-grid">
                 {% for item in page_templates %}
-                <a href="#" class="btn btn-secondary span4" {% if item.description %}data-toggle="tooltip" data-placement="top" title="{{ item.description}}"{% endif %}>
+                <a href="{{ url('cpanel:page-new', args=[world.pk, item.pk]) }}" class="btn btn-secondary span4" {% if item.description %}data-toggle="tooltip" data-placement="top" title="{{ item.description}}"{% endif %}>
                     <i class="fa {{ item.icon }} fa-fw "></i>
                     <span>{{ item.title }}</span>
                 </a>

@@ -5,12 +5,18 @@ from django.db import models
 class World(models.Model):
     title = models.CharField(max_length=200)
 
+    def __str__(self):
+        return self.title
+
 
 class PageTemplate(models.Model):
     title = models.CharField(max_length=50)
     icon = models.CharField(max_length=50)
     description = models.CharField(max_length=255, blank=True, null=True)
     data = JSONField(blank=True, null=True, default=dict)
+
+    def __str__(self):
+        return self.title
 
 
 class Page(models.Model):
@@ -23,3 +29,6 @@ class Page(models.Model):
     title = models.CharField(max_length=255)
     data = JSONField(blank=True, null=True, default=dict)
     world = models.ForeignKey('world.World', on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return self.title
