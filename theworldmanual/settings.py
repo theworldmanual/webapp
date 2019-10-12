@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from pathlib import Path
 
 from pymongo import MongoClient
 
@@ -142,3 +143,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 client = MongoClient('mongodb://mongo:mongo@localhost:27017/')
+
+STATICFILES_DIRS = [
+    Path(__file__).parent / 'static',
+]

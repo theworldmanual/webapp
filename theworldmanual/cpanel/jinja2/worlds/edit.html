@@ -1,6 +1,34 @@
-{% extends "base.html" %}
+{% extends "dashboard.html" %}
 
 {% block content %}
-    <h1>{{ world.title }}</h1>
-    <p>Это описание мира</p>
+    <div><h1>{{ world.title }}</h1></div>
+
+    <div class="row">
+
+    <div class="col-md-9">
+
+    <div class="card">
+            <h4 class="card-header">Создать...</h4>
+            <div class="card-body template-type-grid">
+                {% for item in page_templates %}
+                <a href="#" class="btn btn-primary span4"><i class="fa {{ item.icon }} fa-fw "></i><span>{{ item.title }}</span></a>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-3">
+        <div class="panel">
+            <div class="panel-heading">
+                <span>Продолжить работу</span>
+            </div>
+            <div class="panel-body">
+                <span>Список недавних статей</span>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
 {% endblock %}

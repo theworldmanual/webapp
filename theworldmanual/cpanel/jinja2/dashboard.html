@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container-fluid p-0">
+
+<!-- Bootstrap row -->
+<div class="row" id="body-row">
+    <!-- Sidebar -->
+    <div id="sidebar-container" class="sidebar-expanded d-none d-md-block"><!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+        <!-- Bootstrap List Group -->
+        <ul class="list-group">
+
+            <!-- Main collapse button -->
+            <a href="#" data-toggle="sidebar-collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-bars fa-fw mr-3"></span>
+                    <span class="menu-collapsed">The World Manual</span>
+                    <span class="submenu-icon ml-auto"></span>
+                </div>
+            </a>
+
+            <!-- Separator with title -->
+{#            <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">#}
+{#                <small>МЕНЮ</small>#}
+{#            </li>#}
+            <!-- /END Separator -->
+
+            <!-- Menu with submenu -->
+            <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-globe-americas fa-fw mr-3"></span>
+                    <span class="menu-collapsed">Миры</span>
+                    <span class="submenu-icon ml-auto"></span>
+                </div>
+            </a>
+            <!-- Submenu content -->
+            <div id='submenu1' class="collapse sidebar-submenu">
+                <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                    <span class="fa fa-list-ul fa-fw mr-3"></span>
+                    <span class="menu-collapsed">Список</span>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                    <span class="fa fa-plus-circle fa-fw mr-3"></span>
+                    <span class="menu-collapsed">Создать</span>
+                </a>
+            </div>
+        </ul><!-- List Group END-->
+    </div><!-- sidebar-container END -->
+
+    <div class="col">
+        {% block content %}{% endblock %}
+    </div>
+
+</div><!-- body-row END -->
+
+
+</div><!-- container -->
+
+{% endblock %}
