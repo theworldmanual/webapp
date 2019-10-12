@@ -2,4 +2,45 @@
 
 {% block content %}
     <h1>Редактирование {{ page.pk }}</h1>
+    <form>
+
+        <div class="row">
+
+            <div class="col-md-9">
+
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        {% for group in template.data.groups %}
+                            <a class="nav-item nav-link {% if loop.index == 1 %}active{% endif %}" id="nav-{{ group.code }}-tab" data-toggle="tab" href="#nav-{{ group.code}}" role="tab" aria-controls="nav-{{ group.code }}" aria-selected="true">{{ group.title }}</a>
+                        {%  endfor %}
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    {% for group in template.data.groups %}
+                        <div class="tab-pane card-body fade {% if loop.index == 1 %}show active{% endif %}" id="nav-{{ group.code }}" role="tabpanel" aria-labelledby="nav-{{ group.code }}-tab">
+                            {% for field in group.fields %}
+                                <div class="form-group row card-body border">
+                                    <label for="{{ group.code }}_{{ field.code }}" class="col-sm-2 col-form-label">{{ field.title }}</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="{{ group.code }}_{{ field.code }}">
+                                        {% if field.description %}<small>{{ field.description }}</small>{% endif %}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {%  endfor %}
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="card-body">
+                    <button type="submit" class="btn btn-primary col-md-12">Сохранить</button>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+
+
 {% endblock %}

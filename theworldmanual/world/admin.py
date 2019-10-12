@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.contrib.postgres.fields import JSONField
+from django_json_widget.widgets import JSONEditorWidget
 
 from .models import World, PageTemplate, Page
 
@@ -9,6 +11,10 @@ class WorldAdmin(admin.ModelAdmin):
 
 class PageTemplateAdmin(admin.ModelAdmin):
     list_display = ['title', 'icon']
+
+    formfield_overrides = {
+        JSONField: {'widget': JSONEditorWidget},
+    }
 
 
 class PageAdmin(admin.ModelAdmin):
