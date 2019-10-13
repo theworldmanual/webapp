@@ -1,93 +1,96 @@
 {% extends "base.html" %}
 
 {% block body %}
-<div class="container-fluid p-0">
+    <div class="container-fluid p-0">
 
-<!-- Bootstrap row -->
-<div class="row" id="body-row">
-    <!-- Sidebar -->
-    <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
-        <!-- Bootstrap List Group -->
-        <ul class="list-group">
+        <!-- Bootstrap row -->
+        <div class="row" id="body-row">
+            <!-- Sidebar -->
+            <div id="sidebar-container" class="sidebar-expanded d-none d-md-block">
+                <!-- Bootstrap List Group -->
+                <ul class="list-group">
 
-            {# Главная кнпка, свернуть sidebar #}
-            <a href="#" data-toggle="sidebar-collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-bars fa-fw mr-3"></span>
-                    <span class="menu-collapsed">The World Manual</span>
-                    <span class="submenu-icon ml-auto"></span>
-                </div>
-            </a>
+                    {# Главная кнпка, свернуть sidebar #}
+                    <a href="#" data-toggle="sidebar-collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                            <span class="fa fa-bars fa-fw mr-3"></span>
+                            <span class="menu-collapsed">The World Manual</span>
+                            <span class="submenu-icon ml-auto"></span>
+                        </div>
+                    </a>
 
-            <!-- Separator with title -->
-            <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center">
+                    <!-- Separator with title -->
+                    <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center">
+                        <hr/>
+                    </li>
+                    <!-- /END Separator -->
+
+                    {# Управление мирами #}
+                    <a href="{{ url('cpanel:worlds-index') }}"
+                       data-toggle="collapse"
+                       data-target="#submenu1"
+                       aria-expanded="false"
+                       class="bg-dark list-group-item list-group-item-action flex-column align-items-start sidebar-menu-item  menu-collapsed"
+                    >
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                            <span class="fa fa-globe-americas fa-fw mr-3"></span>
+                            <span class="menu-collapsed">Мои Миры</span>
+                            <span class="submenu-icon ml-auto"></span>
+                        </div>
+                    </a>
+                    <div id='submenu1' class="collapse sidebar-submenu">
+                        {# Список миров #}
+                        <a href="{{ url('cpanel:worlds-index') }}" class="list-group-item list-group-item-action bg-dark text-white">
+                            <span class="fa fa-list-ul fa-fw mr-3"></span>
+                            <span class="menu-collapsed">Список</span>
+                        </a>
+                        {# Создать мир #}
+                        <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                            <span class="fa fa-plus-circle fa-fw mr-3"></span>
+                            <span class="menu-collapsed">Создать</span>
+                        </a>
+                    </div>
+
+                    {# Информация о мире #}
+                    <a href="{% if world %}{{ url('cpanel:world-detail', args=[world.pk]) }}{% else %}#{% endif %}"
+                       class="bg-dark list-group-item list-group-item-action flex-column align-items-start sidebar-menu-item {% if not world %}disabled text-muted{% endif %}"
+                       {% if not world %}disabled="disabled"{% endif %}
+                    >
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                            <span class="fa fa-columns fa-fw mr-3"></span>
+                            <span class="menu-collapsed">{{ world and world.title or 'Обзор мира' }}</span>
+                            <span class="submenu-icon ml-auto"></span>
+                        </div>
+                    </a>
+
+                    {# Категории страниц #}
+                    <a href="{% if world %}{{ url('cpanel:world-pages', args=[world.pk]) }}{% else %}#{% endif %}"
+                       class="bg-dark list-group-item list-group-item-action flex-column align-items-start sidebar-menu-item {% if not world %}disabled text-muted{% endif %}"
+                       {% if not world %}disabled="disabled"{% endif %}
+                    >
+                        <div class="d-flex w-100 justify-content-start align-items-center">
+                            <span class="fa fa-copy fa-fw mr-3"></span>
+                            <span class="menu-collapsed">Список страниц</span>
+                            <span class="submenu-icon ml-auto"></span>
+                        </div>
+                    </a>
+
+
+                </ul><!-- List Group END-->
+
+            </div><!-- sidebar-container END -->
+
+            <div class="col">
+                <div class="card-body">
+                    <h2>{% block page_heading %}{% endblock %}</h2></div>
                 <hr/>
-            </li>
-            <!-- /END Separator -->
-
-            {# Управление мирами #}
-            <a href="{{ url('cpanel:worlds-index') }}"
-               data-toggle="collapse"
-               data-target="#submenu1"
-               aria-expanded="false"
-               class="bg-dark list-group-item list-group-item-action flex-column align-items-start sidebar-menu-item  menu-collapsed"
-            >
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-globe-americas fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Мои Миры</span>
-                    <span class="submenu-icon ml-auto"></span>
-                </div>
-            </a>
-            <div id='submenu1' class="collapse sidebar-submenu">
-                {# Список миров #}
-                <a href="{{ url('cpanel:worlds-index') }}" class="list-group-item list-group-item-action bg-dark text-white">
-                    <span class="fa fa-list-ul fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Список</span>
-                </a>
-                {# Создать мир #}
-                <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                    <span class="fa fa-plus-circle fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Создать</span>
-                </a>
+                {% block content %}{% endblock %}
             </div>
 
-            {# Информация о мире #}
-            <a href="{% if world %}{{ url('cpanel:world-detail', args=[world.pk]) }}{% else %}#{% endif %}"
-               class="bg-dark list-group-item list-group-item-action flex-column align-items-start sidebar-menu-item {% if not world %}disabled text-muted{% endif %}"
-               {% if not world %}disabled="disabled"{% endif %}
-            >
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-columns fa-fw mr-3"></span>
-                    <span class="menu-collapsed">{{ world and world.title or 'Обзор мира' }}</span>
-                    <span class="submenu-icon ml-auto"></span>
-                </div>
-            </a>
-
-            {# Категории страниц #}
-            <a href="{% if world %}{{ url('cpanel:world-pages', args=[world.pk]) }}{% else %}#{% endif %}"
-               class="bg-dark list-group-item list-group-item-action flex-column align-items-start sidebar-menu-item {% if not world %}disabled text-muted{% endif %}"
-               {% if not world %}disabled="disabled"{% endif %}
-            >
-                <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-copy fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Список страниц</span>
-                    <span class="submenu-icon ml-auto"></span>
-                </div>
-            </a>
+        </div><!-- body-row END -->
 
 
-        </ul><!-- List Group END-->
-
-    </div><!-- sidebar-container END -->
-
-    <div class="col">
-        {% block content %}{% endblock %}
-    </div>
-
-</div><!-- body-row END -->
-
-
-</div><!-- container -->
+    </div><!-- container -->
 
 {% endblock %}
 

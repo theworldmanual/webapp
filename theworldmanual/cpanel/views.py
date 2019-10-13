@@ -52,3 +52,13 @@ def update_page(request, page_id):
     page.data = clean_data
     page.save()
     return redirect(reverse('cpanel:page-edit', kwargs={'page_id': page_id}))
+
+
+def list_pages(request, world_id):
+    world = get_object_or_404(World, pk=world_id)
+    pages = Page.objects.filter(world=world).order_by('title')
+    context = {
+        'world': world,
+        'pages': pages,
+    }
+    return render(request, 'page/categories.html', context)

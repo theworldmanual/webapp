@@ -1,8 +1,8 @@
 {% extends "dashboard.html" %}
 
+{% block page_heading %}Редактирование {{ page.title or (page.template.title + ' Без названия') }}{% endblock %}
+
 {% block content %}
-    <h2>{{ responsive_menu }} Редактирование {{ page.title or (page.template.title + ' Без названия') }}</h2>
-    <hr/>
     <form action="{{ url('cpanel:page-update', args=[page.pk]) }}" method="post">
         {{ csrf_input }}
 
