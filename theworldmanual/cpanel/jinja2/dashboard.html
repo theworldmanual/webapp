@@ -10,7 +10,7 @@
         <!-- Bootstrap List Group -->
         <ul class="list-group">
 
-            <!-- Main collapse button -->
+            {# Главная кнпка, свернуть sidebar #}
             <a href="#" data-toggle="sidebar-collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fa fa-bars fa-fw mr-3"></span>
@@ -20,31 +20,64 @@
             </a>
 
             <!-- Separator with title -->
-{#            <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">#}
-{#                <small>МЕНЮ</small>#}
-{#            </li>#}
+            <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center">
+                <hr/>
+            </li>
             <!-- /END Separator -->
 
-            <!-- Menu with submenu -->
-            <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+            {# Управление мирами #}
+            <a href="{{ url('cpanel:worlds-index') }}"
+               data-toggle="collapse"
+               data-target="#submenu1"
+               aria-expanded="false"
+               class="bg-dark list-group-item list-group-item-action flex-column align-items-start sidebar-menu-item  menu-collapsed"
+            >
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fa fa-globe-americas fa-fw mr-3"></span>
-                    <span class="menu-collapsed">Миры</span>
+                    <span class="menu-collapsed">Мои Миры</span>
                     <span class="submenu-icon ml-auto"></span>
                 </div>
             </a>
-            <!-- Submenu content -->
             <div id='submenu1' class="collapse sidebar-submenu">
-                <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                {# Список миров #}
+                <a href="{{ url('cpanel:worlds-index') }}" class="list-group-item list-group-item-action bg-dark text-white">
                     <span class="fa fa-list-ul fa-fw mr-3"></span>
                     <span class="menu-collapsed">Список</span>
                 </a>
+                {# Создать мир #}
                 <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
                     <span class="fa fa-plus-circle fa-fw mr-3"></span>
                     <span class="menu-collapsed">Создать</span>
                 </a>
             </div>
+
+            {# Информация о мире #}
+            <a href="{% if world %}{{ url('cpanel:world-detail', args=[world.pk]) }}{% else %}#{% endif %}"
+               class="bg-dark list-group-item list-group-item-action flex-column align-items-start sidebar-menu-item {% if not world %}disabled text-muted{% endif %}"
+               {% if not world %}disabled="disabled"{% endif %}
+            >
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-columns fa-fw mr-3"></span>
+                    <span class="menu-collapsed">{{ world and world.title or 'Обзор мира' }}</span>
+                    <span class="submenu-icon ml-auto"></span>
+                </div>
+            </a>
+
+            {# Категории страниц #}
+            <a href="{% if world %}{{ url('cpanel:world-pages', args=[world.pk]) }}{% else %}#{% endif %}"
+               class="bg-dark list-group-item list-group-item-action flex-column align-items-start sidebar-menu-item {% if not world %}disabled text-muted{% endif %}"
+               {% if not world %}disabled="disabled"{% endif %}
+            >
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-copy fa-fw mr-3"></span>
+                    <span class="menu-collapsed">Список страниц</span>
+                    <span class="submenu-icon ml-auto"></span>
+                </div>
+            </a>
+
+
         </ul><!-- List Group END-->
+
     </div><!-- sidebar-container END -->
 
     <div class="col">
