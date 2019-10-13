@@ -1,6 +1,6 @@
-{% extends "dashboard.html" %}
+{% extends "base_dashboard.html" %}
 
-{% block page_heading %}Редактирование {{ page.title or (page.template.title + ' Без названия') }}{% endblock %}
+{% block page_heading %}Редактирование <i class="fa fa-fw {{ page.template.icon }}"></i>{{ page.title or (page.template.title + ' Без названия') }}{% endblock %}
 
 {% block content %}
     <form action="{{ url('cpanel:page-update', args=[page.pk]) }}" method="post">

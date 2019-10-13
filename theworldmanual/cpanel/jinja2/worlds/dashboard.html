@@ -1,4 +1,4 @@
-{% extends "dashboard.html" %}
+{% extends "base_dashboard.html" %}
 
 {% block page_heading %}{{ world.title }}{% endblock %}
 
@@ -27,7 +27,11 @@
             <div class="card-body">
                 <ul>
                     {% for item in recent_pages %}
-                        <li><a href="{{ url('cpanel:page-edit', args=[item.pk]) }}">{{ item.title or 'Без навания' }}</a></li>
+                        <li>
+                            <a href="{{ url('cpanel:page-edit', args=[item.pk]) }}">
+                                <i class="fa fa-fw {{ item.template.icon }}"></i>{{ item.title or 'Без навания' }}
+                            </a>
+                        </li>
                     {% endfor %}
                 </ul>
             </div>
