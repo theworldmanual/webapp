@@ -36,3 +36,19 @@ def edit_page(request, page_id):
         'page': page,
     }
     return render(request, 'page/edit.html', context)
+
+
+def update_page(request, page_id):
+    page = get_object_or_404(Page, pk=page_id)
+    # We mark real data fields with prefixed $
+    new_title = request.POST.get('page_title', '')
+    clean_data = {
+        key[1:]: value
+        for key, value in request.POST.items()
+        if key.startswith('$')
+        if value
+    }
+    page.title = new_title
+    page.data = clean_data
+    page.save()
+    return redirect(reverse('cpanel:page-edit', kwargs={'page_id': page_id}))

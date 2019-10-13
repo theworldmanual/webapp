@@ -20,6 +20,10 @@ class PageTemplateAdmin(admin.ModelAdmin):
 class PageAdmin(admin.ModelAdmin):
     list_display = ['title', 'template', 'world']
 
+    formfield_overrides = {
+        JSONField: {'widget': JSONEditorWidget},
+    }
+
     def get_queryset(self, request):
         return super(PageAdmin, self).get_queryset(request).select_related('world', 'template')
 

@@ -1,12 +1,23 @@
 {% extends "dashboard.html" %}
 
 {% block content %}
-    <h1>Редактирование {{ page.pk }}</h1>
-    <form>
+    <h2>{{ responsive_menu }} Редактирование {{ page.title or (page.template.title + ' Без названия') }}</h2>
+    <hr/>
+    <form action="{{ url('cpanel:page-update', args=[page.pk]) }}" method="post">
+        {{ csrf_input }}
 
         <div class="row">
 
             <div class="col-md-9">
+
+                <div class="card-body">
+                    <div class="form-group row card-body border">
+                        <label for="page_title" class="col-sm-3 col-form-label">Название Страницы</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control bg-light text-muted" id="page_title" name="page_title" value="{{ page.title or '' }}">
+                        </div>
+                    </div>
+                </div>
 
                 <nav>
                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -20,10 +31,10 @@
                         <div class="tab-pane card-body fade {% if loop.index == 1 %}show active{% endif %}" id="nav-{{ group.code }}" role="tabpanel" aria-labelledby="nav-{{ group.code }}-tab">
                             {% for field in group.fields %}
                                 <div class="form-group row card-body border">
-                                    <label for="{{ group.code }}_{{ field.code }}" class="col-sm-2 col-form-label">{{ field.title }}</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="{{ group.code }}_{{ field.code }}">
-                                        {% if field.description %}<small>{{ field.description }}</small>{% endif %}
+                                    <label for="{{ group.code }}_{{ field.code }}" class="col-sm-3 col-form-label">{{ field.title }}</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control bg-light text-muted" id="{{ group.code }}_{{ field.code }}" name="${{ group.code }}.{{ field.code }}" value="{{ page.data.get(group.code + '.' + field.code, '') }}">
+                                        {% if field.description %}<small class="text-muted">{{ field.description }}</small>{% endif %}
                                     </div>
                                 </div>
                             {% endfor %}
@@ -34,7 +45,8 @@
 
             <div class="col-md-3">
                 <div class="card-body">
-                    <button type="submit" class="btn btn-primary col-md-12">Сохранить</button>
+                    <button type="submit" class="btn btn-primary col-md-12 twm-save-button" disabled>Сохранить</button>
+                    <small class="text-muted mx-auto twm-save-button-hint">Нет изменений</small>
                 </div>
             </div>
 

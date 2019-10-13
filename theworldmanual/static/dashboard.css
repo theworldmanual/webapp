@@ -79,3 +79,8 @@ div.template-type-grid a {
 div.template-type-grid a span {
     display: block;
 }
+
+.twm-save-button-hint {
+    text-align: center;
+    display: block;
+}

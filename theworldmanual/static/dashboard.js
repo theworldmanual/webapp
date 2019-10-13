@@ -6,6 +6,7 @@ $('#collapse-icon').addClass('fa-angle-double-left');
 
 // Collapse click
 $('[data-toggle=sidebar-collapse]').click(function() {
+    console.log('collapse');
     SidebarCollapse();
 });
 
@@ -28,5 +29,27 @@ function SidebarCollapse () {
 }
 
 $(function () {
-  $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"]').tooltip();
+
+    const inputs = $('input');
+    for (let i = 0; i < inputs.length; i++) {
+        let initialValue = inputs[i].value;
+        $(inputs[i]).on("change keydown paste input", function() {
+            if (initialValue !== this.value) {
+                this.classList.remove("bg-light", "text-muted", "changed");
+                this.classList.add("changed");
+            } else {
+                this.classList.add("bg-light", "text-muted", "changed");
+                this.classList.remove("changed");
+            }
+            if($('.changed').length) {
+                $('.twm-save-button').removeAttr('disabled');
+                $('.twm-save-button-hint').hide();
+            } else {
+                $('.twm-save-button').attr('disabled', 'disabled');
+                $('.twm-save-button-hint').show();
+            }
+        });
+    }
+
 });
