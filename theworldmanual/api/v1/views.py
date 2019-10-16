@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from rest_framework.generics import ListAPIView
 
 from theworldmanual.api.v1.serializers import CategorySerializer
@@ -10,4 +9,4 @@ class ListCategories(ListAPIView):
     model = PageTreeElement
 
     def get_queryset(self):
-        return PageTreeElement.objects.filter(parent__isnull=True, **self.kwargs)
+        return PageTreeElement.objects.filter(**self.kwargs)

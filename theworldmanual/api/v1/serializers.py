@@ -6,18 +6,18 @@ from theworldmanual.world.models import PageTreeElement
 
 
 class CategorySerializer(ModelSerializer):
-    children = SerializerMethodField()
+    parent = SerializerMethodField()
     text = SerializerMethodField()
     icon = SerializerMethodField()
     a_attr = SerializerMethodField()
 
     class Meta:
         model = PageTreeElement
-        fields = ('id', 'text', 'page', 'a_attr', 'children', 'icon')
+        fields = ('id', 'text', 'a_attr', 'icon', 'parent')
 
     @classmethod
-    def get_children(cls, obj):
-        return cls(obj.children.all(), many=True).data
+    def get_parent(cls, obj):
+        return obj.parent_id or '#'
 
     @staticmethod
     def get_text(obj):
