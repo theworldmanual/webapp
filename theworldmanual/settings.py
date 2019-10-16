@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'mptt',
+    'rest_framework',
     'django_json_widget',
 
     'theworldmanual.world',

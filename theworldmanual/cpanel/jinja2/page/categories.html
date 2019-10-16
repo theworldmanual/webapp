@@ -3,5 +3,98 @@
 {% block page_heading %}Категории страниц{% endblock %}
 
 {% block content %}
-Список категорий
+
+    <div class="row">
+
+        <div class="col-md-9">
+            <div id="jstree_div" class="card-body"></div>
+        </div>
+
+        {#        <div class="col-md-3">#}
+        {#            <button class="btn btn-primary col-md-12 disabled tmw-tree-btn twm-tree-btn-edit" disabled="disabled">Редактировать</button>#}
+        {#            <button class="btn btn-primary col-md-12 disabled twm-tree-rename tmw-tree-btn-rename" disabled="disabled">Редактировать</button>#}
+        {#        </div>#}
+
+    </div>
+
+
+
+{% endblock %}
+
+{% block css %}
+    {{ super() }}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+{% endblock %}
+
+{% block js %}
+    {{ super() }}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+    <script>
+        $(function () {
+            $.jstree.defaults.core.themes.variant = "large";
+            $('#jstree_div').jstree({
+                'core': {
+                    // Allow only to change parent, except root
+                    'check_callback' : function (operation, node, node_parent, node_position, more) {
+                        return !(operation === 'move_node' && node.parent === node_parent.id || node_parent.id === '#');
+                    },
+                    'data': {
+                        'url': '/api/v1/get-categories/{{ world.id }}',
+                    }
+                },
+                "plugins" : ["dnd", 'sort']
+            })
+                .on('select_node.jstree', function (e, data) {
+                    let $el = $(data.event.target);
+
+                    // If world is selected -- we produce no popover
+                    if($el.data('type') === 'world') return;
+
+                    if(!$el.data('bs.popover')) {
+                        let body;
+
+                        // For page -- generate popover with edit button
+                        if($el.data('type') === 'page') {
+                            let $btn = $('<a><i class="fa fa-fw fa-edit"></i> Edit page</a>');
+                            $btn
+                                .addClass('btn btn-primary')
+                                .attr('href', $el.data('edit-url'))
+                                .on('click', function (e) {
+                                    console.log('click');
+                                    e.stopPropagation();
+                                });
+                            body = $btn;
+                        } else {
+                            body = 'Rename category';
+                        }
+                        $el.popover({
+                            'content': body,
+                            'placement': 'right',
+                            'trigger': 'focus',
+                            'html': true,
+                        });
+                    }
+                    //
+                    $el.popover('show');
+                })
+                .on('dnd_start.jstree', function (e, data) {
+                    console.log('started')
+                });
+        });
+
+        // jsTree does not emit drag start, so we catch those events
+        $(document).on("dnd_start.vakata.jstree", function (e, data) {
+            // Hide any popover for triggered element if any
+            let $el = $(data.element);
+            if($el.data('bs.popover')) {
+                $el.popover('hide');
+            }
+        });
+
+        // Disable popover close with click inside it
+        // We still user trigger=focus to close it on outside-click
+        $('body').on('mousedown', '.popover', function(e) {
+            e.preventDefault();
+        });
+    </script>
 {% endblock %}

@@ -4,4 +4,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('cpanel/', include('theworldmanual.cpanel.urls', namespace='cpanel')),
+    path('api/', include('theworldmanual.api.urls', namespace='api')),
 ]
