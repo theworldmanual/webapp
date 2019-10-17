@@ -47,6 +47,8 @@ INSTALLED_APPS = [
 
     'theworldmanual.world',
     'theworldmanual.cpanel',
+    'theworldmanual.api.v1',
+    'theworldmanual.explorer',
 ]
 
 MIDDLEWARE = [

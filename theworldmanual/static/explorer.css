@@ -1,0 +1,127 @@
+body {
+    background-color: rgb(228, 224, 214);
+    color: rgba(76, 54, 47, 0.99);
+    /*padding: 20px; !* todo: this is not responsible *!*/
+}
+
+.outer-content {
+    padding: 0;
+    width: 100%;
+    /*box-sizing: border-box;*/
+}
+
+div.row.data {
+    margin: 0;
+}
+
+.content {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 0 -1px 15px 5px rgba(0,0,0,.2);
+    background: url(bg.jpg);
+    font-family: serif;
+    min-width: 508px;
+    max-width: 900px;
+
+}
+
+.content h1 {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    margin-left: 50px;
+    color: #4e392ffc;
+    font-size: 24pt;
+    font-weight: 700;
+}
+
+.content h1 small {
+    opacity: 0.7;
+    font-weight: normal;
+    font-size: 66%;
+}
+
+.content h2 {
+    color: rgb(144, 11, 11);
+    border-bottom: rgb(160, 130, 100) solid 1px;
+    font-size: 18pt;
+    font-weight: 700;
+    margin-bottom: 12pt;
+    display: block;
+    width: 100%;
+}
+
+.content h3 {
+    color: rgb(89, 23, 23);
+    margin-bottom: 0;
+    font-size: 14pt;
+    font-weight: 700;
+}
+
+.content > p {
+    margin-top: 3.5pt;
+    font-size: 12pt;
+}
+
+.content .sidebar .h3 {
+    font-size: 12pt;
+    color: rgba(76, 54, 47, 0.99);
+    font-weight: 700;
+}
+
+#explorer-tree-container {
+    min-height: 100vh;
+    background-color: #132644;
+    padding: 0;
+    /* flex: unset; */
+}
+
+.explorer-tree-expanded {
+    width: 250px;
+}
+
+.explorer-tree-collapsed {
+    width: 0;
+}
+
+#explorer-tree-container {
+    padding: 10px 5px;
+    color: rgba(228, 224, 214, 0.9);
+    overflow-x: scroll;
+}
+
+.explorer-menu-collapse-btn-main-container {
+    position: fixed;
+    left: 20px;
+    top: 20px;
+    font-size: 18pt;
+}
+
+.explorer-menu-collapse-btn-main-container a {
+    display: block;
+    height: 40px;
+    width: 40px;
+    padding: 10px;
+}
+
+.explorer-menu-collapse-btn-menu-container {
+    padding-top: 10px;
+    padding-left: 15px;
+}
+
+.explorer-menu-collapse-btn-menu-container a {
+    padding-top: 10px;
+    padding-left: 10px;
+    height: 40px;
+    width: 40px;
+}
+
+.d-none-important {
+    display: none!important;
+}
+
+a.jstree-anchor.jstree-clicked, a.jstree-anchor.jstree-hovered {
+    color: black;
+    opacity: 0.8;
+}

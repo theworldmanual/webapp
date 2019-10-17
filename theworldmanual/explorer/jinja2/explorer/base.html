@@ -1,0 +1,37 @@
+<html lang="ru">
+<head>
+    <title>Explorer mode</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+    <link rel="stylesheet" href="{{ static('explorer.css') }}"/>
+</head>
+<body>
+<div class="data row">
+    <div id="explorer-tree-container" class="explorer-tree-expanded d-none d-md-block explorer-menu-collapse">
+        <div class="explorer-menu-collapse">
+            <div class="explorer-menu-collapse-btn-menu-container text-light">
+                <a href="#" class="explorer-menu-collapse-btn btn btn-light"><i class="fa fa-fw fa-list"></i></a>
+                <span class="text-muted"><strong>&nbsp;The World Manual</strong></span>
+                <hr/>
+            </div>
+            <div id="jstree_div"></div>
+        </div>
+    </div>
+    <div class="outer-content col">
+        <div class="explorer-menu-collapse explorer-menu-collapse-btn-main-container d-none-important">
+            <a href="#" class="explorer-menu-collapse-btn btn btn-dark">
+                <span class="d-block"><i class="fa fa-fw fa-list"></i></span></a>
+        </div>
+        <div class="content"></div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script src="{{ static('explorer.js') }}"></script>
+<script>
+    const WORLD_ID = {{ world.id }};
+</script>
+</body>
+</html>
