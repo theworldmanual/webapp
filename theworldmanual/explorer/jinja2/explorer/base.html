@@ -27,8 +27,38 @@
     </div>
 </div>
 
+{% raw %}
+<script id="page_template" type="text/x-jsrender">
+<h1>{{: title }} <small><i class="fa {{:category_icon}} fa-fw"></i>{{:category}}</small></h1>
+<div class="row">
+    <div class="main {{if sidebar.length}}col-md-9{{else}}col-md-12{{/if}}">
+        {{for main}}
+            <h2>{{:title}}</h2>
+            <div>
+                {{for fields}}
+                    <h3>{{:title}}</h3>
+                    <p>{{:~bbcode(value)}}</p>
+                {{/for}}
+            </div>
+        {{/for}}
+    </div>
+    {{if sidebar.length}}
+    <div class="sidebar col-md-3">
+        {{for sidebar}}
+            <div>
+                <strong>{{:title}}</strong>: {{:~bbcode(value)}}
+            </div>
+        {{/for}}
+    </div>
+    {{/if}}
+</div>
+</script>
+{% endraw %}
+
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/1.0.5/jsrender.min.js"></script>
+<script src="{{ static('xbbcode.js') }}"></script>
 <script src="{{ static('explorer.js') }}"></script>
 <script>
     const WORLD_ID = {{ world.id }};

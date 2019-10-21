@@ -1,4 +1,5 @@
-from django.shortcuts import get_object_or_404, render
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 from rest_framework.generics import ListAPIView
 
 from theworldmanual.api.v1.serializers import CategorySerializer
@@ -13,10 +14,10 @@ class ListCategories(ListAPIView):
         return PageTreeElement.objects.filter(**self.kwargs)
 
 
-def get_rendered_page(request, page_id):
+def get_page(request, page_id):
     page = get_object_or_404(Page, pk=page_id)
     template = page.template
-    chunks = []
+    main_chunks = []
     sidebar_chunks = []
     for group in template.data.get('groups', []):
         group_chunks = []
@@ -25,16 +26,25 @@ def get_rendered_page(request, page_id):
             value = page.data.get(lookup_key)
             if value:
                 if field.get('position', 'main') == 'sidebar':
-                    sidebar_chunks.append((field['title'], value))
+                    sidebar_chunks.append({
+                        'title': field['title'],
+                        'value': value,
+                    })
                 else:
-                    group_chunks.append((field['title'], value))
+                    group_chunks.append({
+                        'title': field['title'],
+                        'value': value,
+                    })
         if group_chunks:
-            chunks.append((group["title"], group_chunks))
+            main_chunks.append({
+                'title': group["title"],
+                'fields': group_chunks,
+            })
     context = {
         'title': page.title,
         'category_icon': page.template.icon,
         'category': page.template.title,
-        'main': chunks,
+        'main': main_chunks,
         'sidebar': sidebar_chunks,
     }
-    return render(request, 'api_v1/rendered_page.html', context)
+    return JsonResponse(context)

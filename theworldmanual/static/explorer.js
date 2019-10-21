@@ -1,3 +1,13 @@
+let templateHelpers = {
+    bbcode: function (val) {
+        return XBBCODE.process({
+            text: val,
+            removeMisalignedTags: false,
+            addInLineBreaks: false
+        }).html;
+    }
+};
+
 function getHashValue(key) {
     let matches = location.hash.match(new RegExp(key+'=([^&]*)'));
     return matches ? matches[1] : null;
@@ -8,10 +18,15 @@ function openPage(page_id) {
     navigateToPage();
 }
 
+function renderContent(data) {
+    let tmpl = $.templates("#page_template");
+    return tmpl.render(data, templateHelpers);
+}
+
 function navigateToPage() {
-    $.ajax('/api/v1/get-page/' + getHashValue('page') + '/rendered')
+    $.ajax('/api/v1/get-page/' + getHashValue('page'))
         .done(function (data) {
-            $('div.content').html(data);
+            $('div.content').html(renderContent(data));
         });
 }
 
@@ -39,4 +54,12 @@ $(function () {
         });
 
     navigateToPage();
+
+    $(document).on('click', '[data-target=navigate]', function () {
+        openPage($(this).data('page'));
+    });
+
+    $(window).on('popstate', function() {
+        navigateToPage();
+    });
 });
