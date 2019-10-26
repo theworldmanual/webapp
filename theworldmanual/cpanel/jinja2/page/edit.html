@@ -33,7 +33,11 @@
                                 <div class="form-group row card-body border">
                                     <label for="{{ group.code }}_{{ field.code }}" class="col-sm-3 col-form-label">{{ field.title }}</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control bg-light text-muted" id="{{ group.code }}_{{ field.code }}" name="${{ group.code }}.{{ field.code }}" value="{{ page.data.get(group.code + '.' + field.code, '') }}">
+                                        {% if field.type == 'text' %}
+                                            <textarea class="form-control bg-light text-muted" id="{{ group.code }}_{{ field.code }}" name="${{ group.code }}.{{ field.code }}">{{ page.data.get(group.code + '.' + field.code, '') }}</textarea>
+                                        {% else %}
+                                            <input type="text" class="form-control bg-light text-muted" id="{{ group.code }}_{{ field.code }}" name="${{ group.code }}.{{ field.code }}" value="{{ page.data.get(group.code + '.' + field.code, '') }}">
+                                        {% endif %}
                                         {% if field.description %}<small class="text-muted">{{ field.description }}</small>{% endif %}
                                     </div>
                                 </div>

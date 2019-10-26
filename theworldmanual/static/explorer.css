@@ -59,9 +59,10 @@ div.row.data {
     font-weight: 700;
 }
 
-.content > p {
+div.content p {
     margin-top: 3.5pt;
     font-size: 12pt;
+    white-space: pre-line;
 }
 
 .content .sidebar .h3 {

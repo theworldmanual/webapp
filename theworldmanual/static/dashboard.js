@@ -42,7 +42,7 @@ function SidebarCollapse () {
 $(function () {
     $('[data-toggle="tooltip"]').tooltip();
 
-    const inputs = $('input');
+    const inputs = $('input, textarea');
     for (let i = 0; i < inputs.length; i++) {
         let initialValue = inputs[i].value;
         $(inputs[i]).on("change keydown paste input", function() {
